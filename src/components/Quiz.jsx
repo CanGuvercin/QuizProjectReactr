@@ -5,12 +5,14 @@ import QuestionTimer from './QuestionTimer.jsx';
 import quizCompleteImg from '../assets/quiz-complete.png';
 
 export default function Quiz() {
+  const [answerState, setAnswerState] = useState('');
   const [userAnswers, setUserAnswers] = useState([]);
 
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
   const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer) {
+    setAnswerState('answered');
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
@@ -34,6 +36,7 @@ export default function Quiz() {
     <div id="quiz">
       <div id="question">
         <QuestionTimer
+          key={activeQuestionIndex}
           timeout={10000}
           onTimeout={handleSkipAnswer}
         />
